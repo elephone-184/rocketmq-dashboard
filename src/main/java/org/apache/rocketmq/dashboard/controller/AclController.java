@@ -42,6 +42,16 @@ public class AclController {
     @Autowired
     private AclServiceImpl aclService;
 
+    @Autowired
+    private org.apache.rocketmq.dashboard.service.AclAuditService aclAuditService;
+
+    @GetMapping("/auditCidrSubnets.query")
+    @ResponseBody
+    public Object auditCidrSubnets(@RequestParam(required = false) String brokerAddr,
+                                  @RequestParam(required = false) String clusterName) {
+        return aclAuditService.auditAclCidrSubnets(clusterName, brokerAddr);
+    }
+
     @GetMapping("/users.query")
     @ResponseBody
     public List<UserInfoDto> listUsers(@RequestParam(required = false) String brokerName,
